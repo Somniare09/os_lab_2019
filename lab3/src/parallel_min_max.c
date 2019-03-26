@@ -116,8 +116,7 @@ int main(int argc, char **argv) {
   }
 
   while (active_child_processes > 0) {
-    // your code here
-
+   wait(NULL);
     active_child_processes -= 1;
   }
 
@@ -126,13 +125,22 @@ int main(int argc, char **argv) {
   min_max.max = INT_MIN;
 
   for (int i = 0; i < pnum; i++) {
-    int min = INT_MAX;
-    int max = INT_MIN;
-
+    struct MinMax Min_Max;
     if (with_files) {
-      // read from files
+      FILE * file=fopen("file.txt","rb");
+      if(file==0)
+      {
+          printf("Not ppen file\n");
+          return 1;
+      }
+      else
+      {
+          fseek(file,i*sizeof(struct MinMax),SEEK_SET);
+          fscanf(&minmax,sizeof(struct MinMax),1,file);
+      }
+      fclose(file);
     } else {
-      // read from pipes
+      read(fds[0],&Min_max,sizeof(struct MinMax));// read from pipes
     }
 
     if (min < min_max.min) min_max.min = min;
@@ -141,7 +149,11 @@ int main(int argc, char **argv) {
 
   struct timeval finish_time;
   gettimeofday(&finish_time, NULL);
-
+  
+  int fds[2];
+  pipe(fds);
+  int fdlen=array_size/pnum;
+  
   double elapsed_time = (finish_time.tv_sec - start_time.tv_sec) * 1000.0;
   elapsed_time += (finish_time.tv_usec - start_time.tv_usec) / 1000.0;
 
