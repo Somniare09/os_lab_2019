@@ -4,17 +4,7 @@
 
 #include <pthread.h>
 
-struct SumArgs {
-  int *array;
-  int begin;
-  int end;
-};
 
-int Sum(const struct SumArgs *args) {
-  int sum = 0;
-  // TODO: your code here 
-  return sum;
-}
 
 void *ThreadSum(void *args) {
   struct SumArgs *sum_args = (struct SumArgs *)args;
@@ -22,23 +12,14 @@ void *ThreadSum(void *args) {
 }
 
 int main(int argc, char **argv) {
-  /*
-   *  TODO:
-   *  threads_num by command line arguments
-   *  array_size by command line arguments
-   *	seed by command line arguments
-   */
+ 
 
   uint32_t threads_num = 0;
   uint32_t array_size = 0;
   uint32_t seed = 0;
   pthread_t threads[threads_num];
 
-  /*
-   * TODO:
-   * your code here
-   * Generate array here
-   */
+  
 
   int *array = malloc(sizeof(int) * array_size);
 
