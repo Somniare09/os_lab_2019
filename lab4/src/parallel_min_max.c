@@ -74,9 +74,13 @@ int main(int argc, char **argv) {
             with_files = true;
             break;
           case 4:
-			 printf("%s\n", optarg);
-             timeout = atoi(optarg);
-             break;
+            timeout = atoi(optarg);
+            if(timeout<0)
+            {
+                printf("timeout must be positive!\n");
+                return 1;
+            }
+            break;
 
           defalut:
             printf("Index %d is out of options\n", option_index);
@@ -152,6 +156,11 @@ int main(int argc, char **argv) {
     }
   }
 
+  if(timeout > 0)
+    {
+    	signal(SIGALRM, killemall);
+    	alarm(timeout);
+    }
   while (active_child_processes > 0) {
     // your code here
     wait(NULL); //ожидание окончания процесса
