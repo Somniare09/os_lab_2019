@@ -7,9 +7,10 @@
 #include "task5.h"
 #include "utils.h"
 
+
 void *ThreadSum(void *args) {
   struct SumArgs *sum_args = (struct SumArgs *)args;
-  return (void *)(size_t)Sum(sum_args);
+  return (void *)(size_t)Summa(sum_args);
 }
 
 int main(int argc, char **argv) {
@@ -17,14 +18,14 @@ int main(int argc, char **argv) {
   uint32_t array_size = -1;
   uint32_t seed = -1;
         static struct option options[] = 	{{"seed", required_argument, 0, 0},
-                                                        {"array_size", required_argument, 0, 0},
-                                                        {"threads_num", required_argument, 0, 0},
-                                                        {0, 0, 0, 0}};
+                                            {"array_size", required_argument, 0, 0},
+                                            {"threads_num", required_argument, 0, 0},
+                                            {0, 0, 0, 0}};
 
         int option_index = 0;
 	while(1)
 	{
-	        int c = getopt_long(argc, argv, "f", options, &option_index);
+	    int c = getopt_long(argc, argv, "f", options, &option_index);
 		if (c == -1) break;
 		switch(c)
 		{
@@ -62,7 +63,7 @@ int main(int argc, char **argv) {
                 printf("Usage: %s --seed \"num\" --array_size \"num\" --threads_num \"num\" \n", argv[0]);
                 return 1;
         }
-
+  
   pthread_t threads[threads_num];
 
   int *array = malloc(sizeof(int) * array_size);
@@ -92,16 +93,14 @@ int main(int argc, char **argv) {
     total_sum += sum;
   }
 
-        struct timeval finish_time;
-        gettimeofday(&finish_time, NULL);
-
-        double elapsed_time = (finish_time.tv_sec - start_time.tv_sec) * 1000.0;
-        elapsed_time += (finish_time.tv_usec - start_time.tv_usec) / 1000.0;
-
-
+    struct timeval finish_time;
+    gettimeofday(&finish_time, NULL);
+    
+    double elapsed_time = (finish_time.tv_sec - start_time.tv_sec) * 1000.0;
+    elapsed_time += (finish_time.tv_usec - start_time.tv_usec) / 1000.0;
 
   free(array);
   printf("Total: %d\n", total_sum);
-        printf("Elapsed time: %fms\n", elapsed_time);
+  printf("Elapsed time: %fms\n", elapsed_time);
   return 0;
 }

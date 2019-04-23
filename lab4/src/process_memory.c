@@ -1,6 +1,6 @@
 
 /* Program to display address information about the process */
-/* Adapted from Gray, J., program 1.4 */
+/* Adapted from Gy, J., program 1.4 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

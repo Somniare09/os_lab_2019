@@ -3,4 +3,4 @@ struct SumArgs {
   int begin;
   int end;
 };
-int Sum(const struct SumArgs *args)
+int Summa(const struct SumArgs *args);
