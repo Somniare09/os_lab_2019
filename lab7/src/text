@@ -1,0 +1,2 @@
+./tcpserv --bufsize 100 --serv_port 20001
+./tcpcli --bufsize 100 --serv_port 20001 --addr 127.0.0.1
